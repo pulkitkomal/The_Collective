@@ -4,6 +4,7 @@ import re
 from cryptography.fernet import Fernet
 import jwt
 import datetime
+
 f = Fernet(password_key)
 
 
@@ -30,7 +31,7 @@ def create_session(username):
 
 def verify_session(token):
     try:
-        jwt.decode(token, session_key, algorithms='HS256')
+        jwt.decode(token.encode('utf-8'), session_key, algorithms='HS256')
         return True
     except:
         return False
@@ -90,17 +91,10 @@ class User:
     def login(self, username, password):
         if not self.check_username(username):
             if self.check_password(username, password):
-                session = create_session(username)
+                session = create_session(username).decode('utf-8')
                 return True, {'username': username, 'session_token': session}
             else:
                 return False, 'Password incorrect'
         else:
             return False, 'Username incorrect'
 
-
-
-
-# print(User().create_user('test2', 'test@testp.com', '12345678'))
-# print(User().check_username('test'))
-# print(User().login('test2', '12345678'))
-# a = create_session('pulkit')

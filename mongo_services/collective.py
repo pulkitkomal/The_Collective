@@ -28,6 +28,3 @@ class Collectives:
                  'time': datetime.datetime.now()}
         col_ledger.insert_one(query)
         return True, 'Message Added'
-
-# print(Collectives('user').check_collections())
-print(Collectives('users').add_message('test','test'))
