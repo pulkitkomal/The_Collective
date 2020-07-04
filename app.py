@@ -1,7 +1,10 @@
 from flask import Flask
 from services.user_services import user_ser
 from services.collective_services import collection
+from flask_cors import CORS
+
 tcr = Flask(__name__)
+CORS(tcr)
 tcr.register_blueprint(user_ser)
 tcr.register_blueprint(collection)
 
