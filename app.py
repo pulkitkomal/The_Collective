@@ -1,8 +1,9 @@
 from flask import Flask
 from services.user_services import user_ser
-
+from services.collective_services import collection
 tcr = Flask(__name__)
 tcr.register_blueprint(user_ser)
+tcr.register_blueprint(collection)
 
 
 @tcr.route('/')

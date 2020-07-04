@@ -24,7 +24,7 @@ def check_email(email):
 
 def create_session(username):
     exp = datetime.datetime.utcnow() + datetime.timedelta(days=3)
-    payload = {'username': username, 'exp': exp}
+    payload = {'username': username}
     token = jwt.encode(payload, session_key, algorithm='HS256')
     return token
 

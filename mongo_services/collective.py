@@ -28,3 +28,13 @@ class Collectives:
                  'time': datetime.datetime.now()}
         col_ledger.insert_one(query)
         return True, 'Message Added'
+
+    def show_messages(self):
+        temp = self.database[self.col]
+        documents = temp.find({})
+        temp_list = []
+        for document in documents:
+            document.pop('_id')
+            temp_list.append(document)
+        return True, temp_list
+

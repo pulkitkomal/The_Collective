@@ -1,4 +1,4 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, Response
 from mongo_services import users
 import json
 user_ser = Blueprint('users', __name__)
@@ -12,9 +12,11 @@ def create_new_user():
     email = data['email']
     temp_var = users.User().create_user(username, email, password)
     if temp_var[0]:
-        return temp_var[1]
+        res = json.dumps(temp_var[1])
+        return Response(response=res, mimetype='application/json', status=200)
     else:
-        return temp_var[1]
+        res = json.dumps(temp_var[1])
+        return Response(response=res, mimetype='application/json', status=409)
 
 
 @user_ser.route('/login', methods=['POST'])
@@ -23,8 +25,9 @@ def create_session():
     username = data['username']
     password = data['password']
     temp_var = users.User().login(username, password)
-    print('p')
     if temp_var[0]:
-        return json.dumps(temp_var[1])
+        res = json.dumps(temp_var[1])
+        return Response(response=res, mimetype='application/json', status=200)
     else:
-        return temp_var[1]
+        res = json.dumps(temp_var[1])
+        return Response(response=res, mimetype='application/json', status=401)
