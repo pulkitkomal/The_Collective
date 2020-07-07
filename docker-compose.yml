@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  collective-service:
+    build:
+      ./
+    volumes:
+    - ./:/usr/src/app
+    ports:
+    - 8000:5000
+
+  mongodb_container:
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: rootpassword
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb_data_container:/usr/src/db
+volumes:
+  mongodb_data_container:
